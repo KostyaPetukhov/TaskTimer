@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
 
-import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+
+import InputTaskName from './input';
+import { addTask } from '../../redux/reducers/taskReducer';
 
 const useStyles = makeStyles({
 	timer: {
@@ -28,6 +32,7 @@ const useStyles = makeStyles({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		cursor: 'default',
 	},
 	button: {
 		width: 75,
@@ -47,11 +52,17 @@ const formatTime = (totalMilliseconds) => {
 };
 
 const Timer = () => {
+	const classes = useStyles();
+
 	const active = !!localStorage.getItem('startTime');
 	const startTime = JSON.parse(localStorage.getItem('startTime'));
+	const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
 	const [timerActive, setTimerActive] = useState(active);
 	const [taskTime, setTaskTime] = useState('00:00:00');
-	const classes = useStyles();
+	const [errorOpen, setErrorOpen] = useState(false);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (timerActive) {
@@ -74,36 +85,44 @@ const Timer = () => {
 	};
 
 	const handleStopTimer = () => {
-		setTimerActive(false);
-		const start = moment(startTime).format('hh:mm:ss');
-		const finishTimeMS = Date.now();
-		const finishTime = moment(finishTimeMS).format('hh:mm:ss');
-		const spendTimeMS = finishTimeMS - startTime;
-		const spendTime = formatTime(spendTimeMS);
-		setTaskTime('00:00:00');
+		if (document.getElementById('taskName').value.length === 0) {
+			setErrorOpen(true);
+		} else {
+			setTimerActive(false);
+			const taskName = document.getElementById('taskName').value;
+			const start = moment(startTime).format('kk:mm:ss');
+			const finishTimeMS = Date.now();
+			const finishTime = moment(finishTimeMS).format('kk:mm:ss');
+			const spendTimeMS = finishTimeMS - startTime;
+			const spendTime = formatTime(spendTimeMS);
+			const task = {
+				id: uuidv4(),
+				taskName,
+				startTime: start,
+				finishTime,
+				spendTime,
+			};
 
-		console.log(
-			'start: ',
-			start,
-			'finish: ',
-			finishTime,
-			'spend time: ',
-			spendTime
-		);
+			localStorage.setItem('tasks', JSON.stringify(tasks.concat(task)));
+			dispatch(addTask(task));
+
+			setTaskTime('00:00:00');
+			localStorage.removeItem('startTime');
+			document.getElementById('taskName').value = '';
+		}
+	};
+
+	const handleTimer = () => {
+		timerActive ? handleStopTimer() : handleStartTimer();
+	};
+
+	const handleErrorClose = () => {
+		setErrorOpen(false);
 	};
 
 	return (
 		<div className={classes.timer}>
-			<TextField
-				id='taskName'
-				placeholder='Name of your task'
-				color='primary'
-				size='small'
-				className={classes.taskName}
-				inputProps={{
-					className: classes.inputStyle,
-				}}
-			/>
+			<InputTaskName open={errorOpen} handleClose={handleErrorClose} />
 			<Paper
 				elevation={3}
 				className={classes.timerClock}
@@ -118,7 +137,7 @@ const Timer = () => {
 			<Button
 				variant='outlined'
 				className={classes.button}
-				onClick={timerActive ? handleStopTimer : handleStartTimer}
+				onClick={handleTimer}
 			>
 				{timerActive ? 'STOP' : 'START'}
 			</Button>
