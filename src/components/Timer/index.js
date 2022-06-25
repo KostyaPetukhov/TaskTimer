@@ -134,13 +134,11 @@ const Timer = () => {
 					{taskTime}
 				</Typography>
 			</Paper>
-			<Button
-				variant='outlined'
-				className={classes.button}
-				onClick={handleTimer}
-			>
-				{timerActive ? 'STOP' : 'START'}
-			</Button>
+			<Paper>
+				<Button className={classes.button} onClick={handleTimer}>
+					{timerActive ? 'STOP' : 'START'}
+				</Button>
+			</Paper>
 		</div>
 	);
 };

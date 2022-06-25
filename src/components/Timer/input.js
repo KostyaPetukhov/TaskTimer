@@ -19,6 +19,9 @@ const useStyles = makeStyles({
 		color: '#1976d2 !important',
 		textAlign: 'center',
 	},
+	closeButton: {
+		color: '#35baf6 !important',
+	},
 });
 
 const InputTaskName = (props) => {
@@ -53,7 +56,12 @@ const InputTaskName = (props) => {
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>Close</Button>
+					<Button
+						onClick={handleClose}
+						className={classes.closeButton}
+					>
+						Close
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</>
