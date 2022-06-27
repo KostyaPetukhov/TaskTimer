@@ -38,7 +38,7 @@ const TaskInfo = () => {
 	const { id } = useParams();
 	const classes = useStyles();
 	const tasks = useSelector((state) => state.tasks.data);
-	const task = tasks.find((item, index) => index === id - 1);
+	const task = tasks.find((task) => task.id === id);
 
 	return (
 		<div>

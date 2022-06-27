@@ -7,24 +7,14 @@ import Tab from '@mui/material/Tab';
 
 const TabComponent = () => {
 	const navigate = useNavigate();
-	const { pathname } = useLocation();
-	const urlElements = pathname.split('/');
+
+	const urlElements = useLocation().pathname.split('/');
 	const path = urlElements[2];
 
-	const tabNameToIndex = {
-		0: 'log',
-		1: 'chart',
-	};
-
-	const indexToTabName = {
-		log: 0,
-		chart: 1,
-	};
-
-	const [selectedTab, setSelectedTab] = useState(indexToTabName[path]);
+	const [selectedTab, setSelectedTab] = useState(path);
 
 	const handleChange = (event, newValue) => {
-		navigate(`/tasks/${tabNameToIndex[newValue]}`, { replace: true });
+		navigate(`/tasks/${newValue}`, { replace: true });
 		setSelectedTab(newValue);
 	};
 
@@ -41,8 +31,8 @@ const TabComponent = () => {
 					textColor='inherit'
 					variant='fullWidth'
 				>
-					<Tab label='TASKS LOG' />
-					<Tab label='TASKS CHART' />
+					<Tab label='TASKS LOG' value='log' />
+					<Tab label='TASKS CHART' value='chart' />
 				</Tabs>
 			</AppBar>
 		</div>

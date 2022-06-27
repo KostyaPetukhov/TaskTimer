@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
-import InputTaskName from './input';
+import InputTaskName from './inputTaskName';
+import ModalTaskName from './modalTaskName';
 import { addTask } from '../../redux/reducers/taskReducer';
 
 const useStyles = makeStyles({
@@ -122,7 +123,7 @@ const Timer = () => {
 
 	return (
 		<div className={classes.timer}>
-			<InputTaskName open={errorOpen} handleClose={handleErrorClose} />
+			<InputTaskName />
 			<Paper
 				elevation={3}
 				className={classes.timerClock}
@@ -139,6 +140,7 @@ const Timer = () => {
 					{timerActive ? 'STOP' : 'START'}
 				</Button>
 			</Paper>
+			<ModalTaskName open={errorOpen} handleClose={handleErrorClose} />
 		</div>
 	);
 };

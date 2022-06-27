@@ -122,7 +122,7 @@ const TasksTable = () => {
 									<Paper>
 										<Link
 											className={classes.link}
-											to={`/tasks/${index + 1}`}
+											to={`/tasks/${task.id}`}
 										>
 											<Button>INFO</Button>
 										</Link>

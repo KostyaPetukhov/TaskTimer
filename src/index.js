@@ -34,7 +34,7 @@ root.render(
 							path='/'
 							element={<Navigate to='tasks/log' replace />}
 						/>
-						<Route path='/tasks/' element={<MainPage />}>
+						<Route path='tasks/' element={<MainPage />}>
 							<Route index element={<TasksTable />} />
 							<Route path='log' element={<TasksTable />} />
 							<Route path='chart' element={<TaskChart />} />
