@@ -1,11 +1,14 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+
+import FormatTimeHelper from '../formatTimeHelper';
 
 const useStyles = makeStyles({
 	paper: {
@@ -49,13 +52,15 @@ const TaskInfo = () => {
 							{task.taskName}
 						</Typography>
 						<Typography className={classes.info}>
-							Start time: {task.startTime}
+							Start time:
+							{moment(task.startTime).format('kk:mm:ss')}
 						</Typography>
 						<Typography className={classes.info}>
-							Finish time: {task.finishTime}
+							Finish time:
+							{moment(task.finishTime).format('kk:mm:ss')}
 						</Typography>
 						<Typography className={classes.info}>
-							Spend time: {task.spendTime}
+							Spend time: {FormatTimeHelper(task.spendTime)}
 						</Typography>
 					</>
 				) : (

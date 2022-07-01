@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +9,7 @@ import { makeStyles } from '@mui/styles';
 
 import InputTaskName from './inputTaskName';
 import ModalTaskName from './modalTaskName';
+import FormatTimeHelper from '../formatTimeHelper';
 import { addTask } from '../../redux/reducers/taskReducer';
 
 const useStyles = makeStyles({
@@ -44,14 +44,6 @@ const useStyles = makeStyles({
 	},
 });
 
-const formatTime = (totalMilliseconds) => {
-	const minutesSeconds = moment.utc(totalMilliseconds).format('mm:ss');
-	const hours = moment.duration(totalMilliseconds).asHours().toFixed();
-	const parsedHours = hours <= 9 ? '0' + hours : hours;
-	const formatted = `${parsedHours}:${minutesSeconds}`;
-	return formatted;
-};
-
 const Timer = () => {
 	const classes = useStyles();
 
@@ -70,7 +62,7 @@ const Timer = () => {
 			const addSecondInterval = setInterval(() => {
 				const currentTime = Date.now();
 				const timer = currentTime - startTime;
-				setTaskTime(formatTime(timer));
+				setTaskTime(FormatTimeHelper(timer));
 			}, 1000);
 
 			return () => {
@@ -91,15 +83,13 @@ const Timer = () => {
 		} else {
 			setTimerActive(false);
 			const taskName = document.getElementById('taskName').value;
-			const start = moment(startTime).format('kk:mm:ss');
-			const finishTimeMS = Date.now();
-			const finishTime = moment(finishTimeMS).format('kk:mm:ss');
-			const spendTimeMS = finishTimeMS - startTime;
-			const spendTime = formatTime(spendTimeMS);
+			const finishTime = Date.now();
+			const spendTime = finishTime - startTime;
+
 			const task = {
 				id: uuidv4(),
 				taskName,
-				startTime: start,
+				startTime,
 				finishTime,
 				spendTime,
 			};

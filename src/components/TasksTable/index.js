@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { makeStyles } from '@mui/styles';
 import Table from '@mui/material/Table';
@@ -13,6 +14,8 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
 import DeleteTaskButton from './DeleteTaskButton';
+import FormatTimeHelper from '../formatTimeHelper';
+
 const useStyles = makeStyles({
 	table: {
 		width: 800,
@@ -101,19 +104,19 @@ const TasksTable = () => {
 									align='center'
 									className={classes.cell}
 								>
-									{task.startTime}
+									{moment(task.startTime).format('kk:mm:ss')}
 								</TableCell>
 								<TableCell
 									align='center'
 									className={classes.cell}
 								>
-									{task.finishTime}
+									{moment(task.finishTime).format('kk:mm:ss')}
 								</TableCell>
 								<TableCell
 									align='center'
 									className={classes.cell}
 								>
-									{task.spendTime}
+									{FormatTimeHelper(task.spendTime)}
 								</TableCell>
 								<TableCell
 									align='center'
