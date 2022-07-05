@@ -14,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
 import DeleteTaskButton from './DeleteTaskButton';
-import FormatTimeHelper from '../formatTimeHelper';
+import FormatTimeHelper from '../../helpers/formatTimeHelper';
 
 const useStyles = makeStyles({
 	table: {

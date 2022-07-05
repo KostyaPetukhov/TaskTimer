@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import FormatTimeHelper from '../formatTimeHelper';
+import FormatTimeHelper from '../../helpers/formatTimeHelper';
 
 const useStyles = makeStyles({
 	paper: {

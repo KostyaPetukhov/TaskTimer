@@ -9,7 +9,7 @@ import { makeStyles } from '@mui/styles';
 
 import InputTaskName from './inputTaskName';
 import ModalTaskName from './modalTaskName';
-import FormatTimeHelper from '../formatTimeHelper';
+import FormatTimeHelper from '../../helpers/formatTimeHelper';
 import { addTask } from '../../redux/reducers/taskReducer';
 
 const useStyles = makeStyles({
