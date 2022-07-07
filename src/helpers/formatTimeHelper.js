@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
-const FormatTimeHelper = (totalMilliseconds) => {
+const formatTimeHelper = (totalMilliseconds) => {
 	const minutesSeconds = moment.utc(totalMilliseconds).format('mm:ss');
 	const mins = Math.round(totalMilliseconds / 60000);
 	const hours = Math.floor(mins / 60);
@@ -10,8 +9,4 @@ const FormatTimeHelper = (totalMilliseconds) => {
 	return formatted;
 };
 
-FormatTimeHelper.propTypes = {
-	totalMilliseconds: PropTypes.number.isRequired,
-};
-
-export default FormatTimeHelper;
+export default formatTimeHelper;

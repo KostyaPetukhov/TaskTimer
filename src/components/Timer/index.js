@@ -9,7 +9,7 @@ import { makeStyles } from '@mui/styles';
 
 import InputTaskName from './inputTaskName';
 import ModalTaskName from './modalTaskName';
-import FormatTimeHelper from '../../helpers/formatTimeHelper';
+import formatTimeHelper from '../../helpers/formatTimeHelper';
 import { addTask } from '../../redux/reducers/taskReducer';
 
 const useStyles = makeStyles({
@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 		margin: '30px 0',
 		width: 200,
 		height: 200,
-		borderRadius: 40,
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -62,7 +61,7 @@ const Timer = () => {
 			const addSecondInterval = setInterval(() => {
 				const currentTime = Date.now();
 				const timer = currentTime - startTime;
-				setTaskTime(FormatTimeHelper(timer));
+				setTaskTime(formatTimeHelper(timer));
 			}, 1000);
 
 			return () => {

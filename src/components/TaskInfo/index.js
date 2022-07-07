@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-import FormatTimeHelper from '../../helpers/formatTimeHelper';
+import formatTimeHelper from '../../helpers/formatTimeHelper';
 
 const useStyles = makeStyles({
 	paper: {
@@ -60,7 +60,7 @@ const TaskInfo = () => {
 							{moment(task.finishTime).format('kk:mm:ss')}
 						</Typography>
 						<Typography className={classes.info}>
-							Spend time: {FormatTimeHelper(task.spendTime)}
+							Spend time: {formatTimeHelper(task.spendTime)}
 						</Typography>
 					</>
 				) : (
