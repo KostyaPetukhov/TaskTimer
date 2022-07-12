@@ -5,18 +5,13 @@ import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
-import { deleteTask } from '../../../redux/reducers/taskReducer';
+import { deleteTask } from '../../../redux/reducers/tasksSlice';
 
 const DeleteTaskButton = (props) => {
 	const { taskId } = props;
-	const tasks = JSON.parse(localStorage.getItem('tasks'));
 	const dispatch = useDispatch();
 
 	const handleDeleteTask = () => {
-		localStorage.setItem(
-			'tasks',
-			JSON.stringify(tasks.filter((task) => task.id !== taskId))
-		);
 		dispatch(deleteTask(taskId));
 	};
 

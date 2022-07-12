@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import chartDataHelper from '../../helpers/chartDataHelper';
 import generateTasksHelper from '../../helpers/generateTasksHelper';
 import { useDispatch } from 'react-redux';
-import { addTasks } from '../../redux/reducers/taskReducer';
+import { addTasks } from '../../redux/reducers/tasksSlice';
 
 const useStyles = makeStyles({
 	chart: {
@@ -47,7 +47,6 @@ const TasksChart = () => {
 
 	const handleTaskGenerate = () => {
 		const tasks = generateTasksHelper();
-		localStorage.setItem('tasks', JSON.stringify(tasks));
 		dispatch(addTasks(tasks));
 		navigate('/taskslog');
 	};

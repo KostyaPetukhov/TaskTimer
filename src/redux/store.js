@@ -1,13 +1,10 @@
-import { createStore, combineReducers } from 'redux';
-import { taskReducer } from './reducers/taskReducer';
+import { configureStore } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-	tasks: taskReducer,
+import tasks from './reducers/tasksSlice';
+
+const store = configureStore({
+	reducer: { tasks },
+	devTools: process.env.NODE_ENV !== 'production',
 });
-
-const store = createStore(
-	rootReducer,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
 
 export default store;

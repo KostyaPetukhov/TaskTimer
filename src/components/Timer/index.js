@@ -10,7 +10,7 @@ import { makeStyles } from '@mui/styles';
 import InputTaskName from './inputTaskName';
 import ModalTaskName from './modalTaskName';
 import formatTimeHelper from '../../helpers/formatTimeHelper';
-import { addTask } from '../../redux/reducers/taskReducer';
+import { addTask } from '../../redux/reducers/tasksSlice';
 
 const useStyles = makeStyles({
 	timer: {
@@ -48,7 +48,6 @@ const Timer = () => {
 
 	const active = !!localStorage.getItem('startTime');
 	const startTime = JSON.parse(localStorage.getItem('startTime'));
-	const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 	const [timerActive, setTimerActive] = useState(active);
 	const [taskTime, setTaskTime] = useState('00:00:00');
@@ -93,7 +92,6 @@ const Timer = () => {
 				spendTime,
 			};
 
-			localStorage.setItem('tasks', JSON.stringify(tasks.concat(task)));
 			dispatch(addTask(task));
 
 			setTaskTime('00:00:00');
