@@ -13,11 +13,11 @@ const tasksSlice = createSlice({
 			localStorage.setItem('tasks', JSON.stringify(action.payload));
 		},
 		addTask: (state, action) => {
-			state.data.push(action.payload);
 			localStorage.setItem(
 				'tasks',
 				JSON.stringify(state.data.concat(action.payload))
 			);
+			state.data.push(action.payload);
 		},
 		deleteTask: (state, action) => {
 			state.data = state.data.filter(
