@@ -7,8 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
-import InputTaskName from './inputTaskName';
-import ModalTaskName from './modalTaskName';
+import InputTaskName from './InputTaskName';
+import ModalTaskName from './ModalTaskName';
 import formatTimeHelper from '../../helpers/formatTimeHelper';
 import { addTask } from '../../redux/reducers/tasksSlice';
 
@@ -52,6 +52,7 @@ const Timer = () => {
 	const [timerActive, setTimerActive] = useState(active);
 	const [taskTime, setTaskTime] = useState('00:00:00');
 	const [errorOpen, setErrorOpen] = useState(false);
+	const [inputValue, setInputValue] = useState('');
 
 	const dispatch = useDispatch();
 
@@ -76,11 +77,11 @@ const Timer = () => {
 	};
 
 	const handleStopTimer = () => {
-		if (document.getElementById('taskName').value.length === 0) {
+		if (inputValue.length === 0) {
 			setErrorOpen(true);
 		} else {
 			setTimerActive(false);
-			const taskName = document.getElementById('taskName').value;
+			const taskName = inputValue;
 			const finishTime = Date.now();
 			const spendTime = finishTime - startTime;
 
@@ -95,8 +96,8 @@ const Timer = () => {
 			dispatch(addTask(task));
 
 			setTaskTime('00:00:00');
+			setInputValue('');
 			localStorage.removeItem('startTime');
-			document.getElementById('taskName').value = '';
 		}
 	};
 
@@ -108,9 +109,16 @@ const Timer = () => {
 		setErrorOpen(false);
 	};
 
+	const handleChangeInputValue = (value) => {
+		setInputValue(value);
+	};
+
 	return (
 		<div className={classes.timer}>
-			<InputTaskName />
+			<InputTaskName
+				inputValue={inputValue}
+				handleChange={handleChangeInputValue}
+			/>
 			<Paper
 				elevation={3}
 				className={classes.timerClock}

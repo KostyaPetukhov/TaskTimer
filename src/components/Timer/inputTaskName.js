@@ -1,6 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
 
+import { makeStyles } from '@mui/styles';
 import TextField from '@mui/material/TextField';
 
 const useStyles = makeStyles({
@@ -15,15 +16,17 @@ const useStyles = makeStyles({
 });
 
 const InputTaskName = (props) => {
+	const { inputValue, handleChange } = props;
 	const classes = useStyles();
 
 	return (
 		<>
 			<TextField
-				id='taskName'
 				placeholder='Name of your task'
 				color='primary'
 				size='small'
+				value={inputValue}
+				onChange={(e) => handleChange(e.target.value)}
 				className={classes.taskName}
 				inputProps={{
 					className: classes.inputStyle,
@@ -31,6 +34,11 @@ const InputTaskName = (props) => {
 			/>
 		</>
 	);
+};
+
+InputTaskName.propTypes = {
+	inputValue: PropTypes.string,
+	handleChange: PropTypes.func,
 };
 
 export default InputTaskName;
